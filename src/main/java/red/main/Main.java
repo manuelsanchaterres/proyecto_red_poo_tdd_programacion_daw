@@ -1,9 +1,7 @@
 package red.main;
 import red.dominio.Aparato;
 import red.dominio.Red;
-
 import java.util.ArrayList;
-
 
 public class Main {
 
@@ -28,8 +26,8 @@ public class Main {
         nevera.setConsumo(2.8);
         nevera.encender();
         // LISTADO APARATOS ENCENDIDOS
-        ArrayList<Aparato> listaAparatosEncendidos = Main.listaAparatosEncendidos(listaAparatos);
         Red redElectrica = new Red();
+        ArrayList<Aparato> listaAparatosEncendidos = redElectrica.listaAparatosEncendidos(listaAparatos);
         redElectrica.calcularConsumoTotal(listaAparatosEncendidos);
         double totalConsumoActual = redElectrica.getTotalConsumoActual();
 
@@ -37,19 +35,5 @@ public class Main {
 
     }
 
-    public static ArrayList<Aparato> listaAparatosEncendidos(ArrayList<Aparato> listaAparatos){
 
-        ArrayList<Aparato> listaAparatosEncendidos = new ArrayList<Aparato>();
-
-        for (int i = 0; i < listaAparatos.size(); i++) {
-
-            if (listaAparatos.get(i).getEncendido()){
-
-                listaAparatosEncendidos.add(listaAparatos.get(i));
-            }
-
-        }
-
-        return listaAparatosEncendidos;
-    }
 }

@@ -5,6 +5,7 @@ public class Aparato {
     private boolean encendido = false;
     private double consumo = 0;
     private String name = "";
+    private int prioridad = 0;
     public boolean getEncendido() {
         return encendido;
     }
@@ -31,4 +32,13 @@ public class Aparato {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
+
 }
