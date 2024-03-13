@@ -7,11 +7,7 @@ import java.util.Comparator;
 public class SistemaSeguridad {
 
 
-   public static boolean determinarSobreCarga(double totalConsumoActual, double consumoMaximo) {
 
-      return totalConsumoActual > consumoMaximo;
-
-   }
 
 //   public static ArrayList<Aparato> apagarAparatos(){
 //

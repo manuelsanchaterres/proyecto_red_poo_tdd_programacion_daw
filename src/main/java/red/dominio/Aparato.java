@@ -3,9 +3,13 @@ package red.dominio;
 public class Aparato {
 
     private boolean encendido = false;
-    private double consumo = 0;
+    private final double consumo;
     private String name = "";
     private int prioridad = 0;
+
+    public Aparato (double consumo){
+        this.consumo = consumo;
+    }
     public boolean getEncendido() {
         return encendido;
     }
@@ -21,9 +25,9 @@ public class Aparato {
         return consumo;
     }
 
-    public void setConsumo(double consumo) {
-       this.consumo = consumo;
-    }
+//    public void setConsumo(double consumo) {
+//       this.consumo = consumo;
+//    }
 
     public String getName() {
         return name;

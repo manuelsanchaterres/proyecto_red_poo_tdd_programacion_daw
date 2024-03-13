@@ -3,9 +3,14 @@ package red.dominio;
 import java.util.ArrayList;
 public class Red {
 
-    private double consumoMaximo = 0.0;
+    private final double consumoMaximo;
     private double totalConsumoActual = 0.0;
     private ArrayList<Aparato> listaAparatosEncendidos = new ArrayList<Aparato>();
+
+    public Red (double consumoMaximo){
+
+        this.consumoMaximo = consumoMaximo;
+    }
     public double getTotalConsumoActual(){
 
         return totalConsumoActual;
@@ -25,9 +30,9 @@ public class Red {
 
         this.totalConsumoActual = totalConsumoActual;
 //        UNA VEZ CALCULADO EL TOTAL DE CONSUMO ACTUAL DEBEMOS CALCULAR SI HAY SOBRECARGA EN LA RED SPRINT 03
-        if (SistemaSeguridad.determinarSobreCarga(this.totalConsumoActual, consumoMaximo)){
-            SistemaSeguridad.apagarAparatos();
-        };
+//        if (SistemaSeguridad.determinarSobreCarga(this.totalConsumoActual, consumoMaximo)){
+//            SistemaSeguridad.apagarAparatos();
+//        };
     }
 
     public ArrayList<Aparato> listaAparatosEncendidos(ArrayList<Aparato> listaAparatos){
@@ -57,8 +62,7 @@ public class Red {
     public double getConsumoMaximo() {
         return consumoMaximo;
     }
-
-    public void setConsumoMaximo(double consumoMaximo) {
-        this.consumoMaximo = consumoMaximo;
+    public boolean determinarSobreCarga() {
+        return totalConsumoActual > consumoMaximo;
     }
 }

@@ -9,24 +9,21 @@ public class Main {
         // LISTADO APARATOS
         ArrayList<Aparato> listaAparatos = new ArrayList<Aparato>();
         // CREAMOS APARATO Y LO AÑADIMOS A LISTADO DE APARATOS
-        Aparato television = new Aparato();
+        Aparato television = new Aparato(2.5);
         listaAparatos.add(television);
-        Aparato nevera = new Aparato();
+        Aparato nevera = new Aparato(3.2);
         listaAparatos.add(nevera);
-        Aparato calefaccion = new Aparato();
+        Aparato calefaccion = new Aparato(2.8);
         listaAparatos.add(calefaccion);
 //        ENCENDEMOS APARATOS (POR DEFECTO APAGADOS) Y ASIGNAMOS SU CONSUMO Y SU NOMBRE
         television.setName("television");
-        television.setConsumo(2.5);
         television.encender();
         calefaccion.setName("calefaccion");
-        calefaccion.setConsumo(3.2);
         calefaccion.encender();
         nevera.setName("nevera");
-        nevera.setConsumo(2.8);
         nevera.encender();
         // LISTADO APARATOS ENCENDIDOS
-        Red redElectrica = new Red();
+        Red redElectrica = new Red(15.0);
         ArrayList<Aparato> listaAparatosEncendidos = redElectrica.listaAparatosEncendidos(listaAparatos);
         redElectrica.calcularConsumoTotal(listaAparatosEncendidos);
         double totalConsumoActual = redElectrica.getTotalConsumoActual();
