@@ -3,66 +3,38 @@ package red.dominio;
 import java.util.ArrayList;
 public class Red {
 
-    private final double consumoMaximo;
-    private double totalConsumoActual = 0.0;
-    private ArrayList<Aparato> listaAparatosEncendidos = new ArrayList<Aparato>();
-
-    public Red (double consumoMaximo){
-
-        this.consumoMaximo = consumoMaximo;
-    }
-    public double getTotalConsumoActual(){
-
-        return totalConsumoActual;
+    private ArrayList<Aparato> listaAparatos = new ArrayList<Aparato>();
+    private final double potenciaMaxima;
+    public Red (double potenciaMaxima){
+        this.potenciaMaxima = potenciaMaxima;
     }
 
-    public void calcularConsumoTotal(ArrayList<Aparato> listaAparatos){
+    public void addAparato(Aparato aparato){
 
-        double totalConsumoActual = 0.0;
-        for (int i = 0; i < listaAparatos.size(); i++) {
+        listaAparatos.add(aparato);
+    }
 
-            if (listaAparatos.get(i).getEncendido()){
+    public int size(){
 
-                totalConsumoActual += listaAparatos.get(i).getConsumo() ;
-            }
+        return listaAparatos.size();
+    }
 
+    public double getConsumoActual(){
+
+        double consumoActual = 0.0;
+
+        for (Aparato aparato: listaAparatos){
+
+            consumoActual += aparato.getConsumoActual();
         }
 
-        this.totalConsumoActual = totalConsumoActual;
-//        UNA VEZ CALCULADO EL TOTAL DE CONSUMO ACTUAL DEBEMOS CALCULAR SI HAY SOBRECARGA EN LA RED SPRINT 03
-//        if (SistemaSeguridad.determinarSobreCarga(this.totalConsumoActual, consumoMaximo)){
-//            SistemaSeguridad.apagarAparatos();
-//        };
+        return consumoActual;
+
     }
 
-    public ArrayList<Aparato> listaAparatosEncendidos(ArrayList<Aparato> listaAparatos){
+    public boolean esRedEstable(){
 
-        ArrayList<Aparato> listaAparatosEncendidos = new ArrayList<Aparato>();
-
-        for (int i = 0; i < listaAparatos.size(); i++) {
-
-            if (listaAparatos.get(i).getEncendido()){
-
-                listaAparatosEncendidos.add(listaAparatos.get(i));
-            }
-
-        }
-        this.listaAparatosEncendidos = listaAparatosEncendidos;
-
-        return listaAparatosEncendidos;
+        return potenciaMaxima > getConsumoActual();
     }
 
-    public ArrayList<Aparato> getListaAparatosEncendidos(){
-
-        return listaAparatosEncendidos;
-    }
-
-
-
-    public double getConsumoMaximo() {
-        return consumoMaximo;
-    }
-    public boolean determinarSobreCarga() {
-        return totalConsumoActual > consumoMaximo;
-    }
 }

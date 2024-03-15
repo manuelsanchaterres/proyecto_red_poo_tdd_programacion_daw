@@ -1,13 +1,11 @@
 package red.dominio;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import red.main.Main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -15,81 +13,127 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RedTest {
-
+//    private static Red redElectrica;
+//    @BeforeAll
+//    @DisplayName("Crear Instancia Aparato Para Resto de Tests")
+//    public static void crearInstanciaAparato() {
+//        System.out.println("Instantiating Contact Manager before the Test Execution");
+//        redElectrica = new Red(11.0);
+//    }
     @Test
-    @DisplayName("Comprobar Consumo 1 Aparato")
-    void testConsumoActual1Aparato() {
+    @DisplayName("Comprobar Consumo Actual Red 1 Aparato Apagado")
+    void testGetConsumoActual1AparatoApagado() {
 
-        ArrayList <Aparato> listaAparatos = new ArrayList<Aparato>();
-        Aparato television = new Aparato(2.5);
-        television.encender();
-        listaAparatos.add(television);
-        television.setName("television");
-        Red redElectrica = new Red(7.5);
-        ArrayList <Aparato> listaAparatosEncendidos = redElectrica.listaAparatosEncendidos(listaAparatos);
-        redElectrica.calcularConsumoTotal(listaAparatosEncendidos);
-        assertEquals(2.5,redElectrica.getTotalConsumoActual());
-
+        Aparato aparato = new Aparato("television",2.5,2);
+        aparato.apagar();
+        Red redElectrica = new Red(11.0);
+        redElectrica.addAparato(aparato);
+        assertEquals(0,redElectrica.getConsumoActual());
     }
-
     @Test
-    @DisplayName("Comprobar Consumo 2 Aparatos")
-    void testConsumoActual2Aparatos() {
+    @DisplayName("Comprobar Consumo Actual Red 1 Aparato Encendido")
+    void testGetConsumoActual1AparatoEncendido() {
 
-        ArrayList <Aparato> listaAparatos = new ArrayList<Aparato>();
-        Aparato television = new Aparato(2.5);
-        television.encender();
-        television.setName("television");
-        listaAparatos.add(television);
-        Aparato calefactor = new Aparato(4.5);
-        calefactor.encender();
-        calefactor.setName("calefactor");
-        listaAparatos.add(calefactor);
-        Red redElectrica = new Red(8.5);
-        ArrayList <Aparato> listaAparatosEncendidos = redElectrica.listaAparatosEncendidos(listaAparatos);
-        redElectrica.calcularConsumoTotal(listaAparatosEncendidos);
-        assertEquals(7.0,redElectrica.getTotalConsumoActual());
-
-    }
-
-    @ParameterizedTest
-    @DisplayName("Test Parametrizado Asignar Consumo Máximo Red")
-    @ValueSource(doubles = {15.0, 4.5, 25.0, 8.5, 14.3})
-    void testSetConsumoMaximo(double potenciaMaximaRedEsperada) {
-        Red redElectrica = new Red(potenciaMaximaRedEsperada);
-        assertEquals(potenciaMaximaRedEsperada, redElectrica.getConsumoMaximo());
+        Aparato aparato = new Aparato("television",2.5,2);
+        aparato.encender();
+        Red redElectrica = new Red(11.0);
+        redElectrica.addAparato(aparato);
+        assertEquals(2.5,redElectrica.getConsumoActual());
     }
 
     @Test
-    @DisplayName("Example of Disabled Test")
-    @Disabled("Not implemented yet")
-    void name() {
+    @DisplayName("Comprobar Consumo Actual Red 2 Aparatos Encendidos")
+    void testGetConsumoActual2AparatosEncendidos() {
+
+        Aparato aparato1 = new Aparato("television",2.5,2);
+        aparato1.encender();
+        Aparato aparato2 = new Aparato("plancha",4.3,3);
+        aparato2.encender();
+        Red redElectrica = new Red(11.0);
+        redElectrica.addAparato(aparato1);
+        redElectrica.addAparato(aparato2);
+        assertEquals(6.8,redElectrica.getConsumoActual());
     }
 
-    private static Stream<Arguments> determinarSobreCargaArgumentsProvider() {
+    private static ArrayList<Aparato> listadoAparatosTest() {
+        ArrayList<Aparato> listadoAparatos = new ArrayList<>();
+
+        listadoAparatos.add(new Aparato("television",2.5,2));
+        listadoAparatos.add(new Aparato("radiador",3.7,1));
+        listadoAparatos.add(new Aparato("nevera",1.7,5));
+        listadoAparatos.add(new Aparato("calentador",3.2,4));
+        listadoAparatos.add(new Aparato("secador",4.1,2));
+        return listadoAparatos;
+    }
+
+    private static ArrayList<String> estadoEncendidoApagoAparato() {
+        ArrayList<String> estadoEncendidoApagadoAparato = new ArrayList<>();
+
+        estadoEncendidoApagadoAparato.add("encender");
+        estadoEncendidoApagadoAparato.add("apagar");
+        estadoEncendidoApagadoAparato.add("encender");
+        estadoEncendidoApagadoAparato.add("encender");
+        estadoEncendidoApagadoAparato.add("encender");
+        return estadoEncendidoApagadoAparato;
+    }
+
+    @Test
+    @DisplayName("Comprobar Consumo Actual Red con Aparatos Encendidos y Apagados")
+    void testGetConsumoActualAparatosEncendidosyApagados() {
+
+        ArrayList<Aparato> listadoAparatosTest = listadoAparatosTest();
+        ArrayList<String> estadoEncendidoApagadoAparato = estadoEncendidoApagoAparato();
+        Red redElectrica = new Red(11.0);
+        for (int i = 0; i < listadoAparatosTest.size(); i++) {
+
+            if(estadoEncendidoApagadoAparato.get(i).equals("encender")){
+
+                listadoAparatosTest.get(i).encender();
+            }else{
+
+                listadoAparatosTest.get(i).apagar();
+            }
+
+            redElectrica.addAparato(listadoAparatosTest.get(i));
+        }
+        assertEquals(11.5,redElectrica.getConsumoActual());
+    }
+
+    @Test
+    @DisplayName("Comprobar Añadido 5 Aparatos a la Red")
+    void testAddAparatos() {
+
+        ArrayList<Aparato> listadoAparatosTest = listadoAparatosTest();
+        Red redElectrica = new Red(11.0);
+        for (int i = 0; i < listadoAparatosTest.size(); i++) {
+
+            redElectrica.addAparato(listadoAparatosTest.get(i));
+        }
+        assertEquals(5, redElectrica.size());
+    }
+    private static Stream<Arguments> testEsRedEstableArgumentsProvider() {
         List<Arguments> listWithArguments = List.of(
-                Arguments.of(3000.00, 2500.00, 7000.00, false),
-                Arguments.of(2500.00, 5000.00, 4000.00, true),
-                Arguments.of(0.0, 0.0, 1000.00, false)
+                Arguments.of(3000.00, 2500.00, 8000.00, true),
+                Arguments.of(2500.00, 5000.00, 4000.00, false),
+                Arguments.of(0.0, 0.0, 1000.00, true),
+                Arguments.of(400, 5200, 1000.00, false),
+                Arguments.of(3400, 1400, 0.0, false)
         );
         return listWithArguments.stream();
     }
     @ParameterizedTest
     @DisplayName("Comprobar Si hay o No Sobrecarga")
-    @MethodSource("determinarSobreCargaArgumentsProvider")
-    public void testDeterminarSobreCarga(double potenciaAparato1, double potenciaAparato2, double potenciaMaxima, boolean valorEsperado) {
-        ArrayList <Aparato> listaAparatos = new ArrayList<Aparato>();
-        Aparato television = new Aparato(potenciaAparato1);
-        television.encender();
-        television.setName("television");
-        listaAparatos.add(television);
-        Aparato calefactor = new Aparato(potenciaAparato2);
-        calefactor.encender();
-        calefactor.setName("calefactor");
-        listaAparatos.add(calefactor);
+    @MethodSource("testEsRedEstableArgumentsProvider")
+    public void testEsRedEstable(double consumoAparato1, double consumoAparato2, double potenciaMaxima, boolean valorEsperado) {
+
+        Aparato aparato1 = new Aparato("television",consumoAparato1, 3);
+        aparato1.encender();
+        Aparato aparato2 = new Aparato("nevera",consumoAparato2, 5);
+        aparato2.encender();
         Red redElectrica = new Red(potenciaMaxima);
-        redElectrica.calcularConsumoTotal(listaAparatos);
-        assertEquals(valorEsperado, redElectrica.determinarSobreCarga());
+        redElectrica.addAparato(aparato1);
+        redElectrica.addAparato(aparato2);
+        assertEquals(valorEsperado, redElectrica.esRedEstable());
     }
 
 }

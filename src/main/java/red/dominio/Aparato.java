@@ -2,13 +2,17 @@ package red.dominio;
 
 public class Aparato {
 
-    private boolean encendido = false;
-    private final double consumo;
-    private String name = "";
-    private int prioridad = 0;
+    private boolean encendido;
+    private double consumo;
+    private String nombre;
+    private int prioridad;
 
-    public Aparato (double consumo){
+    public Aparato (String nombre, double consumo, int prioridad){
         this.consumo = consumo;
+        this.prioridad = prioridad;
+        this.nombre = nombre;
+    }
+    public Aparato (){
     }
     public boolean getEncendido() {
         return encendido;
@@ -25,24 +29,17 @@ public class Aparato {
         return consumo;
     }
 
-//    public void setConsumo(double consumo) {
-//       this.consumo = consumo;
-//    }
+    public double getConsumoActual(){
 
-    public String getName() {
-        return name;
+        return encendido ? consumo: 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getNombre() {
+        return nombre;
     }
 
     public int getPrioridad() {
         return prioridad;
-    }
-
-    public void setPrioridad(int prioridad) {
-        this.prioridad = prioridad;
     }
 
 }

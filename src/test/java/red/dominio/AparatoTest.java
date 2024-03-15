@@ -1,18 +1,28 @@
 package red.dominio;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AparatoTest {
+
+    private static Aparato aparato;
+    @BeforeAll
+    @DisplayName("Crear Instancia Aparato Para Resto de Tests")
+    public static void crearInstanciaAparato() {
+        System.out.println("Instantiating Contact Manager before the Test Execution");
+        aparato = new Aparato("television", 2.5,1);
+    }
     @Test
     @DisplayName("Comprobar Constructor Aparato")
     void testConstructorAparato() {
 
-        Aparato aparato = new Aparato(4.5);
         aparato.encender();
         assertAll(
-                () -> assertEquals(4.5,  aparato.getConsumo())
-
+                () -> assertEquals("television",  aparato.getNombre()),
+                () -> assertEquals(2.5,  aparato.getConsumoActual()),
+                () -> assertEquals(1,  aparato.getPrioridad())
         );
     }
 
@@ -20,7 +30,7 @@ class AparatoTest {
     @DisplayName("Comprobar Encendido Aparato")
     void testEncender() {
 
-        Aparato aparato = new Aparato(0);
+        Aparato aparato = new Aparato();
         aparato.encender();
         assertAll(
                 () -> assertEquals(true,  aparato.getEncendido())
@@ -32,7 +42,7 @@ class AparatoTest {
     @DisplayName("Comprobar Apagado Aparato")
     void testApagar() {
 
-        Aparato aparato = new Aparato(0);
+        Aparato aparato = new Aparato();
         aparato.apagar();
         assertAll(
                 () -> assertEquals(false,  aparato.getEncendido())
@@ -41,27 +51,55 @@ class AparatoTest {
     }
 
     @Test
-    @DisplayName("Comprobar Escritura de Consumo")
-    void testSetConsumo() {
+    @DisplayName("Lectura Consumo Aparato")
+    void testGetConsumo() {
 
-        Aparato aparato = new Aparato(4.5);
         assertAll(
-                () -> assertEquals(4.5, aparato.getConsumo())
+                () -> assertEquals(2.5, aparato.getConsumo())
 
         );
     }
 
     @Test
-    @DisplayName("Comprobar Escritura Nombre de Aparato")
-    void testSetName() {
+    @DisplayName("Lectura Consumo Actual Aparato Apagado")
+    void testGetConsumoActualApagado() {
 
-        Aparato aparato = new Aparato(0);
-        aparato.setName("television");
+        aparato.apagar();
         assertAll(
-                () -> assertEquals("television", aparato.getName())
+                () -> assertEquals(0, aparato.getConsumoActual())
 
         );
     }
+
+    @Test
+    @DisplayName("Lectura Consumo Actual Aparato Encendido")
+    void testGetConsumoActualEncendido() {
+
+        aparato.encender();
+        assertAll(
+                () -> assertEquals(2.5, aparato.getConsumoActual())
+
+        );
+    }
+
+    @Test
+    @DisplayName("Leer Nombre Aparato")
+    void testGetNombre() {
+        assertAll(
+                () -> assertEquals("television", aparato.getNombre())
+
+        );
+    }
+
+    @Test
+    @DisplayName("Leer Prioridad Aparato")
+    void testGetPrioridad() {
+        assertAll(
+                () -> assertEquals(1, aparato.getPrioridad())
+
+        );
+    }
+
 
 
 
