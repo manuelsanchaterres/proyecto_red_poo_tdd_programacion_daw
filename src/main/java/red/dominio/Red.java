@@ -5,9 +5,11 @@ public class Red {
 
     private ArrayList<Aparato> listaAparatos = new ArrayList<Aparato>();
     private final double potenciaMaxima;
+
     public Red (double potenciaMaxima){
         this.potenciaMaxima = potenciaMaxima;
     }
+
 
     public void addAparato(Aparato aparato){
 
@@ -32,9 +34,20 @@ public class Red {
 
     }
 
+    public double getPotenciaMaxima(){
+
+        return potenciaMaxima;
+
+    }
+
+    public ArrayList<Aparato> getListaAparatos(){
+
+        return listaAparatos;
+    }
+
     public boolean esRedEstable(){
 
-        return potenciaMaxima > getConsumoActual();
+        return potenciaMaxima >= getConsumoActual();
     }
 
 }
