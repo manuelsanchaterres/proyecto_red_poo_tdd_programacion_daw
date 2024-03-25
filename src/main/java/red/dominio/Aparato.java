@@ -7,6 +7,16 @@ public class Aparato {
     private String nombre;
     private int prioridad;
 
+    @Override
+    public String toString() {
+        return "Aparato{" +
+                "encendido=" + encendido +
+                ", consumo=" + consumo +
+                ", nombre='" + nombre + '\'' +
+                ", prioridad=" + prioridad +
+                '}';
+    }
+
     public Aparato (String nombre, double consumo, int prioridad){
         this.consumo = consumo;
         this.prioridad = prioridad;

@@ -6,6 +6,14 @@ public class Red {
     private ArrayList<Aparato> listaAparatos = new ArrayList<Aparato>();
     private final double potenciaMaxima;
 
+    @Override
+    public String toString() {
+        return "Red{" +
+                "listaAparatos=" + listaAparatos +
+                ", potenciaMaxima=" + potenciaMaxima +
+                '}';
+    }
+
     public Red (double potenciaMaxima){
         this.potenciaMaxima = potenciaMaxima;
     }
@@ -49,5 +57,20 @@ public class Red {
 
         return potenciaMaxima >= getConsumoActual();
     }
+
+//    public boolean plenaCapacidadUsoRed(){
+//
+//        return potenciaMaxima == getConsumoActual();
+//    }
+
+//    public boolean temporizadorCapacidadUsoRed(){
+//
+//        long start = System.currentTimeMillis();
+//
+//        long start = System.currentTimeMillis();
+//        return potenciaMaxima == getConsumoActual();
+//    }
+
+
 
 }

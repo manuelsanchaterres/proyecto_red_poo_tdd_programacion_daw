@@ -1,9 +1,7 @@
 package red.main;
 import red.dominio.Aparato;
 import red.dominio.Red;
-import red.dominio.SistemaSeguridad;
-
-import java.util.ArrayList;
+import red.dominio.SistemaSeguridadBasico;
 
 public class Main {
 
@@ -15,14 +13,21 @@ public class Main {
         aparato2.encender();
         Aparato aparato3 = new Aparato("secador",1.2, 1);
         aparato3.encender();
-        Red redElectrica = new Red(5);
+
+        System.out.println("Aparato 1: " +aparato1);
+        System.out.println("Aparato 2: " +aparato2);
+        System.out.println("Aparato 3: " +aparato3);
+        Red redElectrica = new Red(8);
         redElectrica.addAparato(aparato1);
         redElectrica.addAparato(aparato2);
         redElectrica.addAparato(aparato3);
+        System.out.println("Red Eléctrica: " + redElectrica);
 
-        if (!redElectrica.esRedEstable()){
-            SistemaSeguridad sistemaSeguridad = new SistemaSeguridad();
-            sistemaSeguridad.apagarAparatosRed(redElectrica);
+        if (!redElectrica.esRedEstable()
+//                || redElectrica.plenaCapacidadUsoRed()
+        ){
+            SistemaSeguridadBasico sistemaSeguridad = new SistemaSeguridadBasico(redElectrica);
+            sistemaSeguridad.apagarAparatosRed();
         }
 
     }

@@ -1,8 +1,6 @@
 package red.dominio;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SistemaSeguridadTest {
+class SistemaSeguridadBasicoTest {
 
     private static Stream<Arguments> testApagarAparatosPotenciaRedProvider() {
         List<Arguments> listWithArguments = List.of(
@@ -40,17 +38,10 @@ class SistemaSeguridadTest {
         redElectrica.addAparato(aparato1);
         redElectrica.addAparato(aparato2);
         redElectrica.addAparato(aparato3);
-        SistemaSeguridad sistemaSeguridad = new SistemaSeguridad();
-        sistemaSeguridad.apagarAparatosRed(redElectrica);
+        SistemaSeguridadBasico sistemaSeguridad = new SistemaSeguridadBasico(redElectrica);
+        sistemaSeguridad.apagarAparatosRed();
         assertEquals(consumoActualEsperado,redElectrica.getConsumoActual());
 
     }
-
-//    @DisplayName("Comprobar Si hay o No Sobrecarga")
-//    @ParameterizedTest
-//    @MethodSource("determinarSobreCargaArgumentsProvider")
-//    public void testApagarAparatos(double consumoMaximo, double consumoActual, boolean valorEsperado) {
-//        assertEquals(valorEsperado, !(consumoMaximo >= consumoActual));
-//    }
 
 }
