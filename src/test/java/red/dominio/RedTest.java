@@ -24,7 +24,7 @@ class RedTest {
     @DisplayName("Comprobar Consumo Actual Red 1 Aparato Apagado")
     void testGetConsumoActual1AparatoApagado() {
 
-        Aparato aparato = new Aparato("television",2.5,2);
+        Aparato aparato = new Aparato("television",2.5,2, false);
         aparato.apagar();
         Red redElectrica = new Red(11.0);
         redElectrica.addAparato(aparato);
@@ -34,7 +34,7 @@ class RedTest {
     @DisplayName("Comprobar Consumo Actual Red 1 Aparato Encendido")
     void testGetConsumoActual1AparatoEncendido() {
 
-        Aparato aparato = new Aparato("television",2.5,2);
+        Aparato aparato = new Aparato("television",2.5,2, false);
         aparato.encender();
         Red redElectrica = new Red(11.0);
         redElectrica.addAparato(aparato);
@@ -45,9 +45,9 @@ class RedTest {
     @DisplayName("Comprobar Consumo Actual Red 2 Aparatos Encendidos")
     void testGetConsumoActual2AparatosEncendidos() {
 
-        Aparato aparato1 = new Aparato("television",2.5,2);
+        Aparato aparato1 = new Aparato("television",2.5,2, false);
         aparato1.encender();
-        Aparato aparato2 = new Aparato("plancha",4.3,3);
+        Aparato aparato2 = new Aparato("plancha",4.3,3, false);
         aparato2.encender();
         Red redElectrica = new Red(11.0);
         redElectrica.addAparato(aparato1);
@@ -58,11 +58,11 @@ class RedTest {
     private static ArrayList<Aparato> listadoAparatosTest() {
         ArrayList<Aparato> listadoAparatos = new ArrayList<>();
 
-        listadoAparatos.add(new Aparato("television",2.5,2));
-        listadoAparatos.add(new Aparato("radiador",3.7,1));
-        listadoAparatos.add(new Aparato("nevera",1.7,5));
-        listadoAparatos.add(new Aparato("calentador",3.2,4));
-        listadoAparatos.add(new Aparato("secador",4.1,2));
+        listadoAparatos.add(new Aparato("television",2.5,2, false));
+        listadoAparatos.add(new Aparato("radiador",3.7,1, false));
+        listadoAparatos.add(new Aparato("nevera",1.7,5, true));
+        listadoAparatos.add(new Aparato("calentador",3.2,4, true));
+        listadoAparatos.add(new Aparato("secador",4.1,2, false));
         return listadoAparatos;
     }
 
@@ -126,9 +126,9 @@ class RedTest {
     @MethodSource("testEsRedEstableArgumentsProvider")
     public void testEsRedEstable(double consumoAparato1, double consumoAparato2, double potenciaMaxima, boolean valorEsperado) {
 
-        Aparato aparato1 = new Aparato("television",consumoAparato1, 3);
+        Aparato aparato1 = new Aparato("television",consumoAparato1, 3, false);
         aparato1.encender();
-        Aparato aparato2 = new Aparato("nevera",consumoAparato2, 5);
+        Aparato aparato2 = new Aparato("nevera",consumoAparato2, 5, true);
         aparato2.encender();
         Red redElectrica = new Red(potenciaMaxima);
         redElectrica.addAparato(aparato1);

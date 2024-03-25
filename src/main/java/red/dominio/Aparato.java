@@ -6,6 +6,7 @@ public class Aparato {
     private double consumo;
     private String nombre;
     private int prioridad;
+    private boolean esCritico;
 
     @Override
     public String toString() {
@@ -14,13 +15,15 @@ public class Aparato {
                 ", consumo=" + consumo +
                 ", nombre='" + nombre + '\'' +
                 ", prioridad=" + prioridad +
+                ", esCritico=" + esCritico +
                 '}';
     }
 
-    public Aparato (String nombre, double consumo, int prioridad){
+    public Aparato (String nombre, double consumo, int prioridad, boolean esCritico){
         this.consumo = consumo;
         this.prioridad = prioridad;
         this.nombre = nombre;
+        this.esCritico = esCritico;
     }
     public Aparato (){
     }
@@ -50,6 +53,10 @@ public class Aparato {
 
     public int getPrioridad() {
         return prioridad;
+    }
+
+    public boolean getEsCritico() {
+        return esCritico;
     }
 
 }

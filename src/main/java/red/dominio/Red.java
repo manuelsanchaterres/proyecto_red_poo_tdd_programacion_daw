@@ -53,6 +53,20 @@ public class Red {
         return listaAparatos;
     }
 
+    public ArrayList<Aparato> getListaAparatosNoCriticos(){
+
+        ArrayList<Aparato> listaAparatosNoCriticos = new ArrayList<Aparato>();
+
+        for (int i = 0; i < listaAparatos.size(); i++) {
+
+            if (!listaAparatos.get(i).getEsCritico()){
+
+                listaAparatosNoCriticos.add(listaAparatos.get(i));
+            }
+        }
+        return listaAparatosNoCriticos;
+    }
+
     public boolean esRedEstable(){
 
         return potenciaMaxima >= getConsumoActual();

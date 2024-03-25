@@ -12,7 +12,7 @@ class AparatoTest {
     @DisplayName("Crear Instancia Aparato Para Resto de Tests")
     public static void crearInstanciaAparato() {
         System.out.println("Instantiating Contact Manager before the Test Execution");
-        aparato = new Aparato("television", 2.5,1);
+        aparato = new Aparato("television", 2.5,1, false);
     }
     @Test
     @DisplayName("Comprobar Constructor Aparato")

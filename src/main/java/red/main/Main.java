@@ -7,11 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Aparato aparato1 = new Aparato("television",2.5, 3);
+        Aparato aparato1 = new Aparato("television",2.5, 3,false);
         aparato1.encender();
-        Aparato aparato2 = new Aparato("nevera",4.5, 5);
+        Aparato aparato2 = new Aparato("nevera",4.5, 5, true);
         aparato2.encender();
-        Aparato aparato3 = new Aparato("secador",1.2, 1);
+        Aparato aparato3 = new Aparato("secador",1.2, 1, false);
         aparato3.encender();
 
         System.out.println("Aparato 1: " +aparato1);

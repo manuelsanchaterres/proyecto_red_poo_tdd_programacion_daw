@@ -9,18 +9,30 @@ public class SistemaSeguridadMenosConsumo extends SistemaSeguridadBasico{
     }
     public void apagarAparatosRed(){
 
+        ArrayList<Aparato> listaAparatosNoCriticos = red.getListaAparatosNoCriticos();
         ArrayList<Aparato> listaAparatos = red.getListaAparatos();
-
-        // listadoAparatos ordenado por consumo de Menor a Mayor
-        listaAparatos.sort((aparato1,aparato2) -> String.valueOf(aparato1.getConsumo()).compareTo(String.valueOf(aparato2.getConsumo())));
+        // listadoAparatos No Críticos ordenado por consumo de Mayor a Menor
+        listaAparatosNoCriticos.sort((aparato1,aparato2) -> String.valueOf(aparato1.getConsumo()).compareTo(String.valueOf(aparato2.getConsumo())));
         int contadorIndiceAparatos = 0;
-        while (!red.esRedEstable()){;
-            listaAparatos.get(contadorIndiceAparatos).apagar();
-            contadorIndiceAparatos++;
 
+        while (!red.esRedEstable() && (contadorIndiceAparatos <= listaAparatosNoCriticos.size()-1)){
+
+            listaAparatosNoCriticos.get(contadorIndiceAparatos).apagar();
+
+            for(int i = 0; i < listaAparatos.size(); i++) {
+
+                if (listaAparatos.get(i).getNombre().equals(listaAparatosNoCriticos.get(contadorIndiceAparatos).getNombre())){
+
+                    listaAparatos.get(i).apagar();
+                }
+            }
+            contadorIndiceAparatos++;
         }
-        System.out.printf(listaAparatos.toString());
-//        System.out.printf(" Consumo Actual Red: %f, Potencia Máxima Red: %f",red.getConsumoActual(),red.getPotenciaMaxima());
+
+        if (!red.esRedEstable()) {
+
+            new SistemaAlarma(red.getConsumoActual()-red.getPotenciaMaxima());
+        }
 
     }
 }

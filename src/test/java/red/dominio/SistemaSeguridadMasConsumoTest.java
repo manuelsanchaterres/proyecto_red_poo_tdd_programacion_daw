@@ -16,9 +16,9 @@ class SistemaSeguridadMasConsumoTest {
         List<Arguments> listWithArguments = List.of(
                 Arguments.of(11.0, 6),
                 Arguments.of(7.5, 6),
-                Arguments.of(4, 3),
-                Arguments.of(0.5, 0),
-                Arguments.of(0, 0)
+                Arguments.of(4, 4),
+                Arguments.of(0.5, 3),
+                Arguments.of(0, 3)
 
         );
         return listWithArguments.stream();
@@ -28,11 +28,11 @@ class SistemaSeguridadMasConsumoTest {
     @DisplayName("Prueba Apagado Aparatos Según Prioridad y Potencia Máxima Red")
     @MethodSource("testApagarAparatosPotenciaRedProvider")
     public void testApagarAparatos(double potenciaMaximaRed, double consumoActualEsperado) {
-        Aparato aparato1 = new Aparato("television",2, 5);
+        Aparato aparato1 = new Aparato("television",2, 5, false);
         aparato1.encender();
-        Aparato aparato2 = new Aparato("nevera",3, 3);
+        Aparato aparato2 = new Aparato("nevera",3, 3, true);
         aparato2.encender();
-        Aparato aparato3 = new Aparato("secador",1, 4);
+        Aparato aparato3 = new Aparato("secador",1, 4, false);
         aparato3.encender();
         Red redElectrica = new Red(potenciaMaximaRed);
         redElectrica.addAparato(aparato1);
